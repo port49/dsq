@@ -1,0 +1,2 @@
+class UniformRandomVariate < RandomVariate
+end

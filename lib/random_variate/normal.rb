@@ -1,0 +1,2 @@
+class NormalRandomVariate < RandomVariate
+end

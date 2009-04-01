@@ -1,0 +1,27 @@
+         1. processes (CSIM processes) - a process is an active entity in a model
+         2. facilities - a facility consists of one or more servers and a queue for waiting processes
+         3. storages - a storage of a pool of tokens and a queue for waiting processes
+         4. buffers - a buffer holds tokens; processes can get and put tokens into a buffer
+         5. events - an event is used to synchronize processes
+         6. mailboxes - a mailbox is used to exchange messages between processes
+6 days on System Objects
+
+
+         1. exponential(1.0) - negative exponential distribution with mean 1.0
+         2. normal(5.0, 2.5) - normal distribution with mean 5.0 and standard deviation 2.5
+         3. uniform(1.0, 10.0) - uniform distribution over the interval (1.0, 10.0)
+         4. uniform_int(20, 80) - integer valued uniform distribution over the inveravl [20, 80]
+2 days on Rand Functions
+
+         1. table - accumulate real values for summarization
+         2. qtable - accumulate integer values; these values can reflect changes in the state of a resource, to, for example, summarize the queue length at a facility
+         3. meter - accumulate data on the passage of processes past a fixed point in the system
+         4. box - accumulate data describing both the number of processes in a fixed portion of the model and the time spent in that portion of the model.
+2 days on Statistical Objects
+
+
+         1. confidence intervals for tables and qtables; heuristics help eliminate bias caused by auto-correlated samples (e.g., response times)
+         2. automatic run-length control - using a confidence interval, this feature lets a model execute until a pre-specified relative error for a confidence level is achieved, for the values collected in a table
+         3. model reset - allows startup transients to be removed before data collection starts
+
+

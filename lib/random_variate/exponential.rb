@@ -1,0 +1,3 @@
+class ExponentialRandomVariate < RandomVariate
+
+end
