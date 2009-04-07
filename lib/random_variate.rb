@@ -30,8 +30,8 @@ class RandomVariate
     # Cycle through the options Hash and set any instance variables that overlap
     # with the option keys.
     options.each do |key, value|
-      if( self.instance_variables.include?( ( "@" + key.to_s ).to_sym ) || instance_variables.include?( "@" + key.to_s ) )
-        instance_variable_set ( "@" + key.to_s ).to_sym, value
+      if( self.methods.include?( ( key.to_s + '=' ).to_sym ) || self.methods.include?( key.to_s + '=' ) )
+        self.send ( key.to_s + '=' ).to_sym, value
       end
     end
   end
@@ -42,30 +42,22 @@ class RandomVariate
   
   # This function is used on the testing framework to test individual 
   # random variate generators.
-  def self.chi_squared_coefficient( actual_data, expected_data_divisions )
+  def self.chi_square_statistic( actual_data, expected_data_divisions )
+    # We don't want to affect the original array.
+    data_points = actual_data.dup
     # This is how many data points we expect to fall in each range.
-    expected_value = ( actual_data.length / ( expected_data_divisions.length - 1 ) )
+    expected_value = ( data_points.length / ( expected_data_divisions.length - 1 ) )
     # Take the first value as the start_point of the range.
-    start_point = expected_data_divisions.unshift
-    expected_data_divisions.each do |end_point|
-      ( actual_data.select do |data_point|
+    opening_of_range = expected_data_divisions.shift
+    data_points.reject!{ |data_point| data_point <= opening_of_range }
+    expected_data_divisions.collect do |end_point|
+      ( data_points.shave! do |data_point|
         # Find the number of data points that fall within this range.
-        ( start_point < data_point ) &&
-        ( data_point <= end_point )
-      end.length - expected_value ) ** 2 / expected_value
-      start_point = end_point
+        data_point <= end_point
+      end - expected_value ) ** 2 / expected_value
     end.sum
-
-
-=begin
-    for( i = 0; i < expected_data_divisions; i += 1 )
-    end.sum
-    }
-    ( 0..9 ).collect do |integer|
-      ( @random.select{ |i| i == integer }.length - @e ).to_f ** 2 / @e 
-    end.sum
-  end
   
+=begin
   # Fail to reject the null hypothesis that there is no significant
   # difference between the expected and the actual frequencies.  True 
   # is rejection of null hypothesis -- the higher the number, the more
