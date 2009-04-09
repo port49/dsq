@@ -1,3 +1,4 @@
+# Ruby version 1.9.1 uses a modified Mersenne Twister with a period of 2**19937-1
 class RandomVariate
   # If this is set, we store the generated values in an array, perhaps
   # to re-run a series using the same random variates.
@@ -31,7 +32,7 @@ class RandomVariate
     # with the option keys.
     options.each do |key, value|
       if( self.methods.include?( ( key.to_s + '=' ).to_sym ) || self.methods.include?( key.to_s + '=' ) )
-        self.send ( key.to_s + '=' ).to_sym, value
+        self.send( ( key.to_s + '=' ).to_sym, value )
       end
     end
   end
@@ -54,7 +55,7 @@ class RandomVariate
       ( data_points.shave! do |data_point|
         # Find the number of data points that fall within this range.
         data_point <= end_point
-      end - expected_value ) ** 2 / expected_value
+      end.to_f - expected_value ) ** 2 / expected_value
     end.sum
   
 =begin

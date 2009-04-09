@@ -18,8 +18,6 @@ describe "ExponentialRandomVariate" do
     RandomVariate.chi_square_statistic( test_data, segments ).should <( 16.919 )
   end
 
-
-
 end
 
 
