@@ -13,7 +13,7 @@ describe "ExponentialRandomVariate" do
     100.times do
       test_data << exponential.generate!
     end
-    segments = ( 0..9 ).to_a.collect{ |n| ( -1 * Math.log( 1 - ( n / 10 ) ) ) } + [ 1.0 / 0 ] 
+    segments = ( 0..9 ).to_a.collect{ |n| ( -1 * Math.log( 1 - ( n.to_f / 10 ) ) ) } + [ 1.0 / 0 ] 
     # segments looks like [ 0, 0.105360515657826, 0.22314355131421, ... 2.30258509299405, Infinity ]
     RandomVariate.chi_square_statistic( test_data, segments ).should <( 16.919 )
   end

@@ -19,7 +19,7 @@ describe "NormalRandomVariate" do
     100.times do
       test_data << normal.generate!
     end
-    segments = ( 0..10 ).to_a.collect{ |n| ( 0.5 * ( 1 + Math.erf( ( ( n / 10 ) - @mean ) / ( @standard_deviation * Math.sqrt( 2 ) ) ) ) )  } 
+    segments = ( 0..10 ).to_a.collect{ |n| ( 0.5 * ( 1 + Math.erf( ( ( n.to_f / 10 ) - @mean ) / ( @standard_deviation * Math.sqrt( 2 ) ) ) ) )  } 
     # segments looks like [ 0.158655253931457, 0.18406012534676, ... 0.5 ]
     RandomVariate.chi_square_statistic( test_data, segments ).should <( 16.919 )
   end

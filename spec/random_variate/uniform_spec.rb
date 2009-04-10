@@ -8,16 +8,16 @@ describe "UniformRandomVariate" do
   end
 
   it "should pass the chi-square test for uniform distribution" do
-    @mean = 1.0
-    @standard_deviation = 1.0
+    @start = 1.0
+    @end = 1.0
 
-    normal = RandomVariate.normal( :mean => @mean, :standard_deviation => @standard_deviation )
+    uniform = RandomVariate.uniform
     test_data = []
     100.times do
-      test_data << normal.generate!
+      test_data << uniform.generate!
     end
-    segments = ( 0..10 ).to_a.collect{ |n| ( 0.5 * ( 1 + Math.erf( ( ( n / 10 ) - @mean ) / ( @standard_deviation * Math.sqrt( 2 ) ) ) ) )  } 
-    # segments looks like [ 0.158655253931457, 0.18406012534676, ... 0.5 ]
+    segments = ( 0..10 ).to_a.collect{ |n| ( n.to_f / 10 ) } 
+    # segments looks like [ 0.0, 0.1, 0.2 ... 1.0 ]
     RandomVariate.chi_square_statistic( test_data, segments ).should <( 16.919 )
   end
 
