@@ -1,8 +1,15 @@
-require File.join( File.dirname(__FILE__), 'random_variate' )
-require File.join( File.dirname(__FILE__), 'array' )
-require File.join( File.dirname(__FILE__), 'simulation' )
-require File.join( File.dirname(__FILE__), 'queue' )
-require File.join( File.dirname(__FILE__), 'population' )
+# Pull in all of our library files.
+[
+  'random_variate',
+  'array',
+  'simulation',
+  'queue',
+  'population',
+  'server',
+  'item' 
+].each do |library_name|
+  require File.join( File.dirname(__FILE__), library_name )
+end
 
 module DSQ
   class Error < RuntimeError; end
