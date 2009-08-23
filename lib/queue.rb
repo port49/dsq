@@ -9,19 +9,21 @@ class Queue
     @populations = []
     @servers = []
     
-    # Cycle through the options Hash and set any instance variables that overlap
-    # with the option keys.
-    options.each do |key, value|
-      if( self.methods.include?( ( key.to_s + '=' ).to_sym ) || self.methods.include?( key.to_s + '=' ) )
-        self.send( ( key.to_s + '=' ).to_sym, value )
-      end
-    end
+    prepopulate_attrs( options )
 
     instance_eval &block if block_given?
   end
 
+  # Convenience method to create a population.
   def given_population( &block )
     @populations.push( Population.new( &block ) )
+  end
+
+  # Convenience method to create a single population with the given arrival rate.
+  def with_arrival_rate( species, *args )
+    self.given_population do
+      with_arrival_rate( species, *args )
+    end
   end
 
   # A Queue can have several Populations, but we refer to the first for convenience.
@@ -29,8 +31,16 @@ class Queue
     @populations.first
   end
 
+  # Convenience method to create a server.
   def given_server( &block )
     @servers.push( Server.new( &block ) )
+  end
+
+  # Convenience method to create a single server with the given service rate.
+  def with_service_rate( species, *args )
+    self.given_server do
+      with_service_rate( species, *args )
+    end
   end
 
   # A Queue can have several Servers, but we refer to the first for convenience.

@@ -6,24 +6,37 @@ class Simulation
     # Set default values.
     @queues = []
     
-    # Cycle through the options Hash and set any instance variables that overlap
-    # with the option keys.
-    options.each do |key, value|
-      if( self.methods.include?( ( key.to_s + '=' ).to_sym ) || self.methods.include?( key.to_s + '=' ) )
-        self.send( ( key.to_s + '=' ).to_sym, value )
-      end
-    end
+    prepopulate_attrs( options )
     
     instance_eval &block if block_given?
   end
   
+  # Convenience method to create a queue.
   def given_queue( &block )
     @queues.push( Queue.new( &block ) )
   end
 
+  # Convenience method to create a single population with the given arrival rate.
+  def with_arrival_rate( species, *args )
+    self.given_queue do
+      with_arrival_rate( species, *args )
+    end
+  end
+ 
+   # Convenience method to create a single server with the given service rate.
+  def with_service_rate( species, *args )
+    self.given_queue do
+      with_service_rate( species, *args )
+    end
+  end
+ 
   # A Simulation can have several Queues, but we refer to the first for convenience.
   def queue
     @queues.first
+  end
+  
+  def current_time
+    Event.time
   end
   
 end
