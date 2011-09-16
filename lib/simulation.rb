@@ -23,7 +23,7 @@ class Simulation
     end
   end
  
-   # Convenience method to create a single server with the given service rate.
+  # Convenience method to create a single server with the given service rate.
   def with_service_rate( species, *args )
     self.given_queue do
       with_service_rate( species, *args )
@@ -39,4 +39,7 @@ class Simulation
     Event.time
   end
   
+  def proceed!
+    Event.proceed!
+  end
 end

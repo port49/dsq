@@ -10,7 +10,7 @@ class Item
   # determine it's creation time.
   def initialize( time )
     # Set default values.
-    @created_at = time
+    @created_at = time || Event.time
   end
   
   # Semantic function to set the time an Item enters the queue.

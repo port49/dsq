@@ -10,4 +10,10 @@ describe "Population" do
     p.arrival_rate.should be_a ExponentialRandomVariate
   end
 
+  it "should raise an error if someone tries to produce an arrival while we are waiting" do
+    p = Population.new
+    p.waiting = true
+    lambda{ p.arrive! }.should raise_error( DSQ::PopulationError, "You can not produce an arrival while the Population is waiting." )
+  end
+
 end

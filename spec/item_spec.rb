@@ -22,7 +22,8 @@ describe "Item" do
   end
 
   it "should have bang! forms of the semantic functions to record times it enters/leaves queue and enters/leaves service" do
-    i = Item.new( 37 )
+    Event.time = 37
+    i = Item.new
     Event.time = 42
     i.enter_queue!
     Event.time = 52

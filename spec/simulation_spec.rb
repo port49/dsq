@@ -30,8 +30,8 @@ describe "Simulation" do
     s = Simulation.new do
       with_service_rate :exponential, :mean => 1.0
     end
-    s.proceed!
     Event.should_receive( :proceed! ).and_return( Event.instance )
+    s.proceed!
   end
 
   it "should know the current_time" do

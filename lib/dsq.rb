@@ -20,4 +20,5 @@ module DSQ
   class Error < RuntimeError; end
   class RandomVariateError < Error; end
   class EventSchedulingError < Error; end
+  class PopulationError < Error; end
 end

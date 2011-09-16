@@ -39,16 +39,23 @@ class Event
     return self
   end
 
+  # Call the event at the front of the event queue.
+  #
+  # @param
+  # @return self
+  def self.call_first_event!
+    if( event_to_execute = self.list.shift )
+      event_to_execute[1].call
+    end
+    return self
+  end
+
   # Sort the events, and run the next event.
   #
   # @param
   # @return self
   def self.proceed!
-    self.sort!
-    if( event_to_execute = self.list.shift )
-      event_to_execute[1].call
-    end
-    return self
+    self.sort!.call_first_event!
   end
   
   # The plan method requires a future time expressed numerically and an lambda
