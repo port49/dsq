@@ -1,5 +1,5 @@
 # Pull in general Ruby behaviors.
-Dir.glob( File.join( File.dirname(__FILE__), 'behavior', '*.rb' ) ).each do |file|
+Dir.glob(File.join(File.dirname(__FILE__),'behavior','*.rb')).each do |file|
   require file
 end
 # Pull in all of our library files.
@@ -11,9 +11,9 @@ end
   'queue',
   'population',
   'server',
-  'item' 
+  'item'
 ].each do |library_name|
-  require File.join( File.dirname(__FILE__), library_name )
+  require File.join(File.dirname(__FILE__), library_name)
 end
 
 module DSQ

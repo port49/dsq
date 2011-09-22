@@ -1,2 +1,34 @@
-DSQ
-Darn Simple Queuing
+= DSQ
+
+== DESCRIPTION:
+
+DSQ: Darn Simple Queuing
+
+This is an internal DSL for Discrete Event Simulations.  Ruby 1.9 now has enough 
+power under the hood that it can be useful to run a simulation in Ruby for the 
+purpose of Operations Research; for example, we might wish to run a simulation 
+of server performance in order to understand the benefits of adding components 
+before going through the expense of installing them. In fact, the predecessor 
+to DSQ was used for this purpose, analyzing log data to isolate a performance 
+bottleneck on a high traffic web site in a multiple-mongrel configuration.
+
+The code is heavily commented because the end user will often not be a programmer 
+but rather will be primarily a statistician.
+
+== FEATURES/PROBLEMS:
+
+This is the first commit to begin upgrading the library to Ruby1.9. This is not yet 
+alpha. Stuff is broke. Also just switched from RSpec to MiniTest.
+
+== SYNOPSIS:
+
+The simplest simulation will eventually look something like:
+
+require 'dsq'
+
+@simulation = Simulation.new do
+  with_arrival_rate :exponential, :mean => 1.0
+  with_service_rate :exponential, :mean => 0.9
+end
+
+@simulation.print_report
